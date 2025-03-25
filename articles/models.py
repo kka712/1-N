@@ -11,7 +11,7 @@ CATEGORY = (
 )
 # 댓글(Comment) 모델 정의
 class Comment(models.Model):
-    answer = models.CharField(max_length=20, choices=CATEGORY, null=True, blank=True)
+    answer = models.CharField(max_length=20, choices=CATEGORY, default='A')
     content = models.TextField()
     article = models.ForeignKey(Article, on_delete=models.CASCADE)  # 게시글과의 외래키 관계 (게시글 삭제 시 댓글도 삭제)
     # article_id: Article 모델의 id를 참조 (Django에서 자동 생성)

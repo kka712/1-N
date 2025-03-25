@@ -3,10 +3,18 @@
     <p>A: {{ option_a_ratio }}%</p>
     <p>B: {{ option_b_ratio }}%</p>
     <div class="progress-stacked" style="height: 50px;">
-        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ option_a_ratio }}%" aria-valuenow="{{ option_a_ratio }}" aria-valuemin="0" aria-valuemax="100">{{ option_a_ratio }}%</div>
-        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ option_b_ratio }}%" aria-valuenow="{{ option_b_ratio }}" aria-valuemin="0" aria-valuemax="100">{{ option_b_ratio }}%</div>
+        <div class="progress-bar bg-primary" role="progressbar" aria-label="Animated striped example" aria-valuenow="{{ option_a_ratio }}" aria-valuemin="0" aria-valuemax="100">{{ option_a_ratio }}%
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{ option_a_ratio }}%"></div>
+        </div>
+        <div class="progress-bar bg-danger" role="progressbar" aria-label="Animated striped example" aria-valuenow="{{ option_b_ratio }}" aria-valuemin="0" aria-valuemax="100">{{ option_b_ratio }}%
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{ option_b_ratio }}%"></div>
+        </div>
     </div>
-    <p>{{article.B}}</p>
+
+    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 75%"></div>
+    </div>
+    <!-- <p>{{article.B}}</p> -->
     <div class="row my-5">
         <div class="col-sm-6 mb-3 mb-sm-0">
           <div class="card  text-bg-primary">
@@ -28,7 +36,7 @@
     <form action="{% url 'articles:comment_create' article.id %}" method='POST'>
         {% csrf_token %}
         {{ form }}
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </form>
     <hr>
     <h2>Answers</h2>
