@@ -1,7 +1,6 @@
 from django.forms import ModelForm
-from django import forms
 from .models import Article, Comment
-
+from django import forms
 class ArticleForm(ModelForm):
     title = forms.CharField(
         widget=forms.TextInput(
@@ -12,18 +11,18 @@ class ArticleForm(ModelForm):
         model = Article
         fields = '__all__'
         widgets = {
-            'content': forms.Textarea(attrs={'class': 'form-control'})
+            'A': forms.TextInput(attrs={'class': 'form-control'}),
+            'B': forms.TextInput(attrs={'class': 'form-control'})
         }
-
-
 class CommentForm(ModelForm):
     class Meta():
         model = Comment
-        # fields = '__all__'
-
-        # fields => 추가할 필드 목록
+        # fields는 추가할 필드 목록
+        # fields = ['answer']
         # fields = ('content', )
-
-        # exclude => 제외할 필드 목록
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'form-control'})
+        }
+        # exclude는 제외할 필드 목록
         exclude = ('article', )
         

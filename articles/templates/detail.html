@@ -1,28 +1,46 @@
 {% extends 'base.html' %}
-
 {% block body %}
-
-    <h3>{{article.title}}</h3>
-    <p>{{article.content}}</p>
-    <p>{{article.created_at}}</p>
-    <p>{{article.updated_at}}</p>
-
-    <a href="{% url 'articles:update' article.id %}">update</a>
-    <a href="{% url 'articles:delete' article.id %}">delete</a>
-
-    <hr>
-
-    <form action="{% url 'articles:comment_create' article.id %}" method="POST">
+    <p>A: {{ option_a_ratio }}%</p>
+    <p>B: {{ option_b_ratio }}%</p>
+    <div class="progress-stacked" style="height: 50px;">
+        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ option_a_ratio }}%" aria-valuenow="{{ option_a_ratio }}" aria-valuemin="0" aria-valuemax="100">{{ option_a_ratio }}%</div>
+        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ option_b_ratio }}%" aria-valuenow="{{ option_b_ratio }}" aria-valuemin="0" aria-valuemax="100">{{ option_b_ratio }}%</div>
+    </div>
+    <p>{{article.B}}</p>
+    <div class="row my-5">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+          <div class="card  text-bg-primary">
+            <div class="card-body">
+              <h5 class="card-title">{{article.title}}</h5>
+              <p class="card-text">A : {{article.A}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card text-bg-danger">
+            <div class="card-body">
+              <h5 class="card-title">{{article.title}}</h5>
+              <p class="card-text">B : {{article.B}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <form action="{% url 'articles:comment_create' article.id %}" method='POST'>
         {% csrf_token %}
-        {{form}}
-        <input type="submit">
+        {{ form }}
+        <button type="submit">Submit</button>
     </form>
-
     <hr>
-
-    {% for comment in comments %}
-        <li>{{comment.content}}</li>
-        <a href="{% url 'articles:comment_delete' article.id comment.id %}">delete</a>
+    <h2>Answers</h2>
+    {% for comment in article.comment_set.all %}
+        {% if comment.answer == 'A' %}
+            <div class="alert alert-primary" role="alert">
+                {{ comment.answer }} - {{ comment.content }}
+            </div>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                {{ comment.answer }} - {{ comment.content }}
+            </div>
+        {% endif %}
     {% endfor %}
-
 {% endblock %}
